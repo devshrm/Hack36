@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const passport = require('passport');
+const { forwardAuthenticated } = require('../config/auth');
 
 
 
@@ -66,11 +67,11 @@ router.post('/login' , (req,res,next)=>{
    
 })
 
-router.get('/login',(req,res)=>{
+router.get('/login',forwardAuthenticated,(req,res)=>{
     res.render('login',{title:'Login'});
 });
 
-router.get('/register',(req,res)=>{
+router.get('/register',forwardAuthenticated,(req,res)=>{
     res.render('register',{title:'Sign up'});
 });
 

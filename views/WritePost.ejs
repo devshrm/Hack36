@@ -1,0 +1,72 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ask Question</title>
+        <link rel="stylesheet" href="/public/css/style.css">
+        <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="jumbotron jumbotron-fluid bg-primary py-3 mb-0 pb-0" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <h1 class="text-white">StudyCorner</h1>
+                    </div>
+                    <div class="col-lg-1 py-3">
+                        <p><a href="/logout" class="text-warning">Logout</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-light text-danger py-3">
+            <div class="row justify-content-center text-center">
+               
+                <div class="col-lg-2"><a href="/home">Home</a></div>
+                <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
+                <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
+
+            </div>
+        </div>
+
+        <div class="container mt-5">
+           
+                <form action="/home/writePost" method="POST">
+                <div class="card card-body container col-7">
+                
+                
+                   <div class="form-group">
+                    <input type="text" class="form-control" name="Title" id="title-post" placeholder="Title">
+                   </div>
+                   <div class="form-group">
+                    <textarea id="editor" cols="80" rows="10" name="Content" id="content" placeholder="Type your question here..."></textarea>
+                   </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="tags" id="tags" placeholder="Tags">
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary" id="submit">Ask!</button>
+                    </div>
+               
+                </div>
+            </form>
+           
+        </div>
+
+
+
+
+
+
+
+
+
+ 
+
+        <%- include('./partials/footer.ejs') %>
+    </body>
+</html>
+       
