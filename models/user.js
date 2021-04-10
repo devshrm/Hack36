@@ -18,7 +18,11 @@ const UserSchema = new mongoose.Schema({
     confirmed:{
         type: Boolean,
         default: false
-    }
+    },
+    posts:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Post"
+    }]
    
     
   

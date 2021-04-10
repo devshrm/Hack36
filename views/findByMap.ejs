@@ -1,8 +1,9 @@
 <html lang="en">
-    <%- include('./partials/header.ejs') %>
+<%- include('./partials/header.ejs') %>
+
     <body>
-       
-        <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0" >
+
+        <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-11">
@@ -18,63 +19,94 @@
 
         <div class="container-fluid bg-light text-danger py-3">
             <div class="row justify-content-center text-center">
-               
+
                 <div class="col-lg-2"><a href="/home">Home</a></div>
                 <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
                 <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
 
             </div>
         </div>
-     
 
-        <h3 class="text-center m-5">Locations of nearby teachers...</h3>
-       
+
+        <h3 class="text-center m-5">Locations of nearby teachers..</h3>
+
         <div id="map"></div>
-       <script>
-           
-           function initMap(){
-              let l1 = '<%- parseFloat(user.longitude) %>'
-              let l2 = '<%- parseFloat(user.latitude) %>'
-              console.log(l1,l2) 
-              var point1 = new google.maps.LatLng(l2, l1);
-               var options = {
-                   zoom:7,
-                   center:point1
-               }
-               var map=new google.maps.Map(document.getElementById('map') , options);
+        <script>
+
+            function initMap(){
+                let l1 = '<%- parseFloat(user.longitude) %>'
+                let l2 = '<%- parseFloat(user.latitude) %>'
+
                
 
-             
-
-               function addMarker(props){
+                
+                var point1 = new google.maps.LatLng(l2, l1);
+                var options = {
+                    zoom: 10,
+                    center: point1
+                }
+                var map = new google.maps.Map(document.getElementById('map'), options);
                 var marker = new google.maps.Marker({
-                   position:props.coords,
-                   map:map
+                        position: point1,
+                        map: map,
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: 'Your location'
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
                 });
+               
+               var Teacher = '<%- JSON.stringify(teachers) %>'
+               console.log(Array.isArray(Teacher))
+               Teacher = JSON.parse(Teacher)
+               console.log(Array.isArray(Teacher))
+                console.log(Teacher)
+               Teacher.forEach(teacher =>{
+                   let name = teacher.name;
+                   let l11 = teacher.latitude;
+                   let l22 = teacher.longitude;
+                   var point2 = new google.maps.LatLng(l11, l22);
+                   addMarker({coords:point2 ,content: '<h1>Teacher</h1>' })
 
-                var infoWindow = new google.maps.InfoWindow({
-                   content:props.content
-               });
+                   
+               })
 
-               marker.addListener('click' , function(){
-                   infoWindow.open(map,marker);
-               });
+                    
+                function addMarker(props) {
+                    var marker = new google.maps.Marker({
+                        position: props.coords,
+                        map: map,
+                        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                    marker.addListener('click', function () {
+                        infoWindow.open(map, marker);
+                    });
 
 
-               }
+                }
 
 
 
 
-           } 
-       </script>
-       <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-        ></script>
-
+            }
+        </script>
+       <script
+       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEFdpdwxoS8f8R3psw0c_yKScuRu8sZUA&callback=initMap&libraries=&v=weekly"
+       async
+     ></script>
 
 
 
 
         <%- include('./partials/footer.ejs') %>
-        </body>
+    </body>
+
 </html>

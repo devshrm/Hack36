@@ -5,7 +5,7 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const Teacher = require('../models/teacher.js');
 
-
+//GET
 router.get('/',ensureAuthenticated,(req,res)=>{
     Post.find().sort({createdAt : -1}).then((result)=>{
         res.render('home' , {posts : result});
@@ -36,12 +36,32 @@ router.get('/findTeacher/map',(req,res)=>{
 
 })
 
+router.get('/profile/:id' , (req,res)=>{
+    let id = req.params.id;
+    User.findById(id).populate('posts').exec(function(err,user){
+        if(err){
+            console.log(err);
+            return res.status(400).json({message : "Error"});
+        }
+       
+        res.render('profile' , {title : 'Profile' , user : user})
+    })
+})
 
+router.get('/my-profile' , (req,res)=>{
 
+    let id = req.user._id;
+    let str = '/home/profile/'+id.toString();
+    res.redirect(str);
+})
 
 router.get('/writePost' , (req,res)=>{
     res.render('WritePost');
 });
+
+
+
+
 
 router.post('/writePost' , (req,res)=>{
     const str = req.body.tags;
@@ -62,13 +82,18 @@ router.post('/writePost' , (req,res)=>{
                     console.log(err);
                     res.redirect('/home');
                 }else{
+                    pUSER.posts.unshift(post);
                     post.createdBy.id = req.user._id;
                     post.createdBy.name = pUSER.name;
-                    post.save()
-                    .then((result)=>{
-                        res.redirect('/home');
-                    }).catch((err)=>{console.log(err)});
-
+                    pUSER.save().then(result =>{
+                        post.save()
+                        .then((result)=>{
+                            res.redirect('/home');
+                        }).catch((err)=>{console.log(err)});
+    
+                    })
+                   
+                   
                 }
             })
         }
