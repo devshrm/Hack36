@@ -1,6 +1,15 @@
 <html lang="en">
-    <%- include('./partials/header.ejs') %>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>StudyCorner | Sign up</title>
+        <link rel="stylesheet" href="/public/css/style.css">
+        <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+  
     <body>
+        
         <div class="jumbotron bg-primary py-5" >
             <div class="container">
                 <h1 class="text-white">StudyCorner</h1>
@@ -44,9 +53,22 @@
                                   </div>
                             </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-4 mr-0">
+                                    <p>Location : </p>
+                                </div>
+                                    <div class="col-lg-4 form-group form-group-inline">
+                                        <input type="name" id="Latitude" name="Latitude" class="form-control" placeholder="Latitude" required/>
+                                    </div>
+                                    <div class="col-lg-4 form-group form-group-inline">
+                                       
+                                        <input type="name" id="Longitude" name="Longitude" class="form-control" placeholder="Longitude" required/>
+                                    </div>
+                               
+                            </div>
                              
                             <div class="text-center">
-                            <button type="submit" class="btn btn-primary text-center">Sign Up</button>
+                            <button type="submit" class="btn btn-primary text-center" id="submit-btn">Sign Up</button>
                             </div>
                         </form>
                 </div>
@@ -56,6 +78,27 @@
 
 
         <script>
+
+            
+
+if('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        document.getElementById('Latitude').value = lat;
+        document.getElementById('Longitude').value = lon;
+        const data = {lat , lon};
+       
+
+        
+      });
+  } else {
+    console.log('Geolocation not available');
+  }
+
+
             var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
              function validatePassword(){
                 if(password.value != confirm_password.value) {

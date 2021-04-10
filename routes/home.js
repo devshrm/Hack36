@@ -4,12 +4,16 @@ const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user');
 
+
+
 router.get('/',ensureAuthenticated,(req,res)=>{
     Post.find().sort({createdAt : -1}).then((result)=>{
         res.render('home' , {posts : result});
     }).catch((err)=>{console.log(err);});
     
 });
+
+
 
 router.get('/writePost' , (req,res)=>{
     res.render('WritePost');
@@ -58,8 +62,15 @@ router.get('/:id' , (req,res)=>{
 
 
 router.get('findTeacher' , (req,res)=>{
-    res.render('findTeacher');
-})
+    User.find(req.user._id,(err,USER)=>{
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }else{
+            res.render('findTeacher',{user : USER});
+        }
+    })
+});
 
 
 
