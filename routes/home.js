@@ -4,6 +4,7 @@ const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user');
 const Teacher = require('../models/teacher.js');
+const Comment  = require('../models/comment.js');
 
 //GET
 router.get('/',ensureAuthenticated,(req,res)=>{
@@ -35,6 +36,24 @@ router.get('/findTeacher/map',(req,res)=>{
     })
 
 })
+router.get('/writePost' , (req,res)=>{
+    res.render('WritePost');
+});
+
+router.get('/:id' , (req,res)=>{
+    const id = req.params.id;
+    Post.findById(id).populate('comments').exec((err,post)=>{
+        if(err){
+            console.log(err);
+            return res.status(400).json({message : "Error"});
+        }
+
+        res.render('post',{post : post, title:'Question'});
+
+    })
+        
+});
+
 
 router.get('/profile/:id' , (req,res)=>{
     let id = req.params.id;
@@ -55,13 +74,11 @@ router.get('/my-profile' , (req,res)=>{
     res.redirect(str);
 })
 
-router.get('/writePost' , (req,res)=>{
-    res.render('WritePost');
-});
 
 
 
 
+//POST
 
 router.post('/writePost' , (req,res)=>{
     const str = req.body.tags;
@@ -82,9 +99,11 @@ router.post('/writePost' , (req,res)=>{
                     console.log(err);
                     res.redirect('/home');
                 }else{
-                    pUSER.posts.unshift(post);
-                    post.createdBy.id = req.user._id;
+                   console.log(post);
+                   
                     post.createdBy.name = pUSER.name;
+                    pUSER.posts.unshift(post);
+                  
                     pUSER.save().then(result =>{
                         post.save()
                         .then((result)=>{
@@ -101,13 +120,49 @@ router.post('/writePost' , (req,res)=>{
 });
 
 
-router.get('/:id' , (req,res)=>{
-    const id = req.params.id;
-    Post.findById(id)
-        .then(result => {
-            res.render('post',{post : result, title:'Question'});
-        }).catch(err=>console.log(err));
-});
+router.post('/:id' , (req,res)=>{
+   const id = req.params.id;
+   
+   User.findById(req.user._id , (err,user)=>{
+       
+  
+    
+       
+        var comment  = new Comment({
+            content : req.body.content,
+            createdOn:id,
+            createdBy:{
+                id:req.user._id,
+                name: user.name
+            }
+           })
+       
+           comment.save((err,cmnt) =>{
+               if(err){
+                   return console.log(err);
+
+               }
+
+               Post.findByIdAndUpdate(id , { $push:{"comments" : cmnt._id}} , (error,pst)=>{
+                   if(error){
+                       return console.log(error)
+                   }
+                   res.redirect('/home/' + id);
+
+
+               })
+
+           })
+   
+
+})
+
+})
+
+
+
+
+
 
 
 
