@@ -3,7 +3,7 @@ const { ensureAuthenticated } = require('../config/auth');
 const router = express.Router();
 const Post = require('../models/post');
 const User = require('../models/user');
-
+const Teacher = require('../models/teacher.js');
 
 
 router.get('/',ensureAuthenticated,(req,res)=>{
@@ -12,6 +12,14 @@ router.get('/',ensureAuthenticated,(req,res)=>{
     }).catch((err)=>{console.log(err);});
     
 });
+
+router.get('/findTeacher' , (req,res)=>{
+    Teacher.find().sort({createdAt : -1}).then((result)=>{
+        res.render('findTeacher',{title:'Find teacher' , teachers : result});
+    }).catch(err => console.log(err));
+   
+});
+
 
 
 
@@ -61,16 +69,6 @@ router.get('/:id' , (req,res)=>{
 });
 
 
-router.get('findTeacher' , (req,res)=>{
-    User.find(req.user._id,(err,USER)=>{
-        if(err){
-            console.log(err);
-            res.redirect('/home');
-        }else{
-            res.render('findTeacher',{user : USER});
-        }
-    })
-});
 
 
 

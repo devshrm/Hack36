@@ -1,5 +1,10 @@
-@media (min-width: 200px) {
-    .container{
-        max-width: 300px;
-    }
+#each-post{
+    border: 1px solid black;
+    margin-left: 50px ;
+    margin-right: 50px;
+    border-radius: 20px;
+}
+
+#each-post-content{
+    padding: 5px;
 }

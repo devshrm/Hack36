@@ -9,6 +9,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
+
 dotenv.config({path : './config/config.env'});
 
 require('./config/passport')(passport);
@@ -23,6 +24,7 @@ mongoose.connect(db,{
 
 const app = express();
 const PORT = process.env.PORT||3000;
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('dev'));
 
