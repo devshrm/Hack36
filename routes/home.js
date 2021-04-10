@@ -45,6 +45,20 @@ router.post('/writePost' , (req,res)=>{
             })
         }
     })
+});
+
+
+router.get('/:id' , (req,res)=>{
+    const id = req.params.id;
+    Post.findById(id)
+        .then(result => {
+            res.render('post',{post : result, title:'Question'});
+        }).catch(err=>console.log(err));
+});
+
+
+router.get('findTeacher' , (req,res)=>{
+    res.render('findTeacher');
 })
 
 

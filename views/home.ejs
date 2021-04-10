@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-11">
-                        <h1 class="text-white">StudyGroup</h1>
+                        <h1 class="text-white">StudyCorner</h1>
                     </div>
                     <div class="col-lg-1 py-3">
                         <p><a href="/logout" class="text-warning">Logout</a></p>
@@ -36,17 +36,17 @@
             <div class="row mt-4">
               <span>Want to ask a question ? <a href="/home/writePost">Click here.</a>
             </div>
-            <h3 class="text-center mt-3">Questions</h3> 
+            <h4 class="text-center my-4">Questions</h4> 
            
              
                 
                 <% if(posts.length > 0){ %>
                     <% posts.forEach(post => { %>
-                        <div class="row">
+                        <div class="row mb-4">
                     <a class = "" href="/home/<%= post._id %>"> 
                         <div class="">
-                            <h3 class = ""><%= post.title %></h3>
-                            <p class = "">By <%= post.createdBy.name %></p>
+                            <h3 class = "text-warning"><%= post.title %></h3>
+                            <p class = "text-warning">By <%= post.createdBy.name %></p>
                         </div>     
                     </a>
                 </div>
