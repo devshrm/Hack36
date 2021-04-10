@@ -14,6 +14,14 @@ router.get('/',ensureAuthenticated,(req,res)=>{
     
 });
 
+router.get('/my-profile' , (req,res)=>{
+
+    let id = req.user._id;
+    
+   console.log(id)
+    res.redirect('/home/profile/'+id);
+})
+
 router.get('/findTeacher' , (req,res)=>{
     Teacher.find().sort({createdAt : -1}).then((result)=>{
         res.render('findTeacher',{title:'Find teacher' , teachers : result});
@@ -67,12 +75,7 @@ router.get('/profile/:id' , (req,res)=>{
     })
 })
 
-router.get('/my-profile' , (req,res)=>{
 
-    let id = req.user._id;
-    let str = '/home/profile/'+id.toString();
-    res.redirect(str);
-})
 
 
 
