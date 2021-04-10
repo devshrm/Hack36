@@ -20,6 +20,22 @@ router.get('/findTeacher' , (req,res)=>{
    
 });
 
+router.get('/findTeacher/map',(req,res)=>{
+    User.findById(req.user._id , (err, USER)=>{
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }else{
+            Teacher.find().then((result)=>{
+                console.log(USER.latitude)
+                console.log(result)
+                res.render('findByMap' , {title:'Map' , user : USER , teachers : result});
+            }).catch(err => console.log(err))
+        }
+    })
+
+})
+
 
 
 

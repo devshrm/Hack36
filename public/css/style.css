@@ -2,9 +2,21 @@
     border: 1px solid black;
     margin-left: 50px ;
     margin-right: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 #each-post-content{
     padding: 5px;
+}
+
+#GoogleMAP{
+    margin-left: 194px;
+    margin-top: 25px;
+}
+
+
+#map{
+    margin: 5px auto;
+    height: 700px ;
+    width: 70%;
 }
