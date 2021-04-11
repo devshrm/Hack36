@@ -10,25 +10,25 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 
-dotenv.config({path : './config/config.env'});
+dotenv.config({ path: './config/config.env' });
 
 require('./config/passport')(passport);
-const db=require('./config/key.js').MongoURI;
-mongoose.connect(db,{
-        useNewUrlParser:true,
-        useUnifiedTopology:true
-    })
-    .then(()=>{console.log("Connectd to MongoDB")})
-    .catch(err=>console.log(err));
+const db = require('./config/key.js').MongoURI;
+mongoose.connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => { console.log("Connectd to MongoDB") })
+    .catch(err => console.log(err));
 
 
 const app = express();
-const PORT = process.env.PORT||3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('dev'));
 
-app.set('view engine' , 'ejs');
+app.set('view engine', 'ejs');
 
 app.use(session({
     secret: 'secret',
@@ -41,12 +41,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname,"public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/' , require('./routes/mainRouter.js'));
+app.use('/', require('./routes/mainRouter.js'));
 
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log('Connected');
 })

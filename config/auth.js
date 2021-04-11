@@ -1,14 +1,12 @@
-module.exports={
-    ensureAuthenticated:function(req,res,next){
-        if(req.isAuthenticated())
-        {
+module.exports = {
+    ensureAuthenticated: function (req, res, next) {
+        if (req.isAuthenticated()) {
             return next();
         }
         res.redirect('/login');
     },
-    forwardAuthenticated:function(req,res,next){
-        if(!req.isAuthenticated())
-        {
+    forwardAuthenticated: function (req, res, next) {
+        if (!req.isAuthenticated()) {
             return next();
         }
         res.redirect('/home');

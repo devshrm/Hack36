@@ -1,40 +1,43 @@
 <html lang="en">
-    <%- include('./partials/header.ejs') %>
+<%- include('./partials/header.ejs') %>
+
     <body>
-       
-        <div class="jumbotron bg-info py-5" >
+
+        <div class="jumbotron bg-info py-5">
             <div class="container">
                 <h1 class="text-white">StudyCorner</h1>
             </div>
         </div>
         <div class="container">
-         
+
             <form action="/login" method="POST">
                 <div class="card card-body container col-4">
                     <h3 class="text-center">Sign In</h3>
                     <div class="form-group ">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="email"  placeholder="Enter email">
-                   
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+
                     </div>
                     <div class="form-group ">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" id="password"
+                            placeholder="Password">
                     </div>
                     <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
                     </div>
-                  
-                 
-                  <a href="/register" class="text-primary py-3 text-center">Create Account</a>
-                 
+
+
+                    <a href="/register" class="text-primary py-3 text-center">Create Account</a>
+
                 </div>
-              </form>
+            </form>
         </div>
 
 
 
 
         <%- include('./partials/footer.ejs') %>
-        </body>
+    </body>
+
 </html>

@@ -1,81 +1,111 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home</title>
-        <link rel="stylesheet" href="/css/style.css">
-        <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-11">
-                        <h1 class="text-white">StudyCorner</h1>
-                    </div>
-                    <div class="col-lg-1 py-3">
-                        <p><a href="/logout" class="text-warning">Logout</a></p>
-                    </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <h1 class="text-white">StudyCorner</h1>
+                </div>
+                <div class="col-lg-1 py-3">
+                    <p><a href="/logout" class="text-warning">Logout</a></p>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <div class="container-fluid bg-light text-danger py-3">
-            <div class="row justify-content-center text-center">
-               
-                <div class="col-lg-2"><a href="/home">Home</a></div>
-                <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
-                <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
+    <div class="container-fluid bg-light text-danger py-3">
+        <div class="row justify-content-center text-center">
 
-            </div>
+            <div class="col-lg-2"><a href="/home">Home</a></div>
+            <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
+            <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
+
         </div>
+    </div>
 
 
 
 
-        <div class="row py-5 px-4">
-            <div class="col-md-5 mx-auto">
-                <div class="bg-white shadow rounded overflow-hidden">
-                    <div class="px-4 pt-0 pb-4 cover">
-                        <div class="media align-items-end profile-head">
-                            <div class="profile mr-3"><img src="/images/default.jpg" alt="..." width="120" class="rounded mb-2 img-thumbnail"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
-                            <div class="media-body mb-5 text-white">
-                                <h4 class="mt-0 mb-0 text-danger"><%= user.name %></h4>
-                               
-                            </div>
+    <div class="row py-5 px-4">
+        <div class="col-md-5 mx-auto">
+            <div class="bg-white shadow rounded overflow-hidden">
+                <div class="px-4 pt-0 pb-4 cover">
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3"><img src="/images/default.jpg" alt="..." width="120"
+                                class="rounded mb-2 img-thumbnail"><a href="#"
+                                class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0 text-danger">
+                                <%= user.name %>
+                            </h4>
+                            <% if(user.role==='Teacher' ){ %>
+                                <button class="float-lg-right" id="subscribe">Join</button>
+                                <% } %>
                         </div>
                     </div>
-                    <div class="bg-light p-4 d-flex justify-content-end text-center">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item">
-                                <h4><%= user.role%></h4>
-                            </li>
-                           
-                        </ul>
-                    </div>
-                   
-                    <div class="py-4 px-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
+                </div>
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <h4>
+                                <%= user.role%>
+                            </h4>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="py-4 px-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-5">All posts</h5>
-                        </div>
-                        <% if((user.posts).length > 0){ %>
-                            <% (user.posts).forEach(post => { %>
-                        <div class="row ml-2 mb-5">
-                            <a href="/home/<%=post._id %>"><h4><%= post.title%></h4></a>
-                        </div>
-                        <% }) %>
-                        <% }else{ %>
-                            <p>No posts... </p>
-                            <% } %>
                     </div>
+                    <% if((user.posts).length> 0){ %>
+                        <% (user.posts).forEach(post=> { %>
+                            <div class="row ml-2 mb-5">
+                                <a href="/home/<%=post._id %>">
+                                    <h4>
+                                        <%= post.title%>
+                                    </h4>
+                                </a>
+                            </div>
+                            <% }) %>
+                                <% }else{ %>
+                                    <p>No posts... </p>
+                                    <% } %>
                 </div>
             </div>
         </div>
+    </div>
 
 
- 
-        <%- include('./partials/footer.ejs') %>
-    </body>
+
+    <%- include('./partials/footer.ejs') %>
+
+        <script>
+            var button1 = document.getElementById('subscribe');
+            var per = '<%- user.email %>';
+            button1.addEventListener('click', () => {
+                var options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+            })
+        </script>
+</body>
+
 </html>

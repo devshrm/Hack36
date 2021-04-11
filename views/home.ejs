@@ -1,67 +1,72 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home</title>
-        <link rel="stylesheet" href="/css/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    </head>
-    <body>
-        <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-11">
-                        <h1 class="text-white">StudyCorner</h1>
-                    </div>
-                    <div class="col-lg-1 py-3">
-                        <p><a href="/logout" class="text-warning">Logout</a></p>
-                    </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <h1 class="text-white">StudyCorner</h1>
+                </div>
+                <div class="col-lg-1 py-3">
+                    <p><a href="/logout" class="text-warning">Logout</a></p>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <div class="container-fluid bg-light text-danger py-3">
-            <div class="row justify-content-center text-center">
-               
-                <div class="col-lg-2"><a href="/home">Home</a></div>
-                <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
-                <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
+    <div class="container-fluid bg-light text-danger py-3">
+        <div class="row justify-content-center text-center">
 
-            </div>
+            <div class="col-lg-2"><a href="/home">Home</a></div>
+            <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
+            <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
+
         </div>
+    </div>
 
-        <div class="container container-fluid">
-            <div class="row mt-4">
-              <span>Want to ask a question ? <a href="/home/writePost">Click here.</a>
-            </div>
-            <h4 class="text-center my-4">Questions</h4> 
-           
-             
-                
-                <% if(posts.length > 0){ %>
-                    <% posts.forEach(post => { %>
-                 <div class="row mb-4"  id="each-post" >
-                    <a class = "" href="/home/<%= post._id %>"> 
+    <div class="container container-fluid">
+        <div class="row mt-4">
+            <span>Want to ask a question ? <a href="/home/writePost">Click here.</a>
+        </div>
+        <h4 class="text-center my-4">Questions</h4>
+
+
+
+        <% if(posts.length> 0){ %>
+            <% posts.forEach(post=> { %>
+                <div class="row mb-4" id="each-post">
+                    <a class="" href="/home/<%= post._id %>">
                         <div id="each-post-content">
-                            <h3 class = "text-warning"><%= post.title %></h3>
-                            <p class = "text-warning">By <%= post.createdBy.name %></p>
-                        </div>     
+                            <h3 class="text-warning">
+                                <%= post.title %>
+                            </h3>
+                            <p class="text-warning">By <%= post.createdBy.name %>
+                            </p>
+                        </div>
                     </a>
                 </div>
-                        <% }) %>
+                <% }) %>
                     <% }else{ %>
-                        <p>No blogs... </p>
+                        <p>No posts... </p>
                         <% } %>
-                
-            
-        </div>
 
 
-          <%- include('./partials/footer.ejs') %>
-    </body>
+    </div>
+
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+
 </html>
-
-
