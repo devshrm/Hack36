@@ -1,8 +1,8 @@
 const express = require('express');
 const { ensureAuthenticated } = require('../config/auth');
 const router = express.Router();
-const Post = require('../models/post');
-const User = require('../models/user');
+const Post = require('../models/post.js');
+const User = require('../models/user.js');
 const Teacher = require('../models/teacher.js');
 const Comment  = require('../models/comment.js');
 
@@ -55,7 +55,7 @@ router.get('/:id' , (req,res)=>{
             console.log(err);
             return res.status(400).json({message : "Error"});
         }
-
+        
         res.render('post',{post : post, title:'Question'});
 
     })
@@ -64,13 +64,15 @@ router.get('/:id' , (req,res)=>{
 
 
 router.get('/profile/:id' , (req,res)=>{
+    console.log(req.params.id)
     let id = req.params.id;
+    
     User.findById(id).populate('posts').exec(function(err,user){
         if(err){
             console.log(err);
             return res.status(400).json({message : "Error"});
         }
-       
+       console.log(user)
         res.render('profile' , {title : 'Profile' , user : user})
     })
 })
