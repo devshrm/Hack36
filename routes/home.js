@@ -5,6 +5,7 @@ const Post = require('../models/post.js');
 const User = require('../models/user.js');
 const Teacher = require('../models/teacher.js');
 const Comment  = require('../models/comment.js');
+const mongoose = require('mongoose');
 
 //GET
 router.get('/',ensureAuthenticated,(req,res)=>{
@@ -66,7 +67,7 @@ router.get('/:id' , (req,res)=>{
 router.get('/profile/:id' , (req,res)=>{
     console.log(req.params.id)
     let id = req.params.id;
-    
+    id = mongoose.Types.ObjectId(id);
     User.findById(id).populate('posts').exec(function(err,user){
         if(err){
             console.log(err);
