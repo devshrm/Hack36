@@ -34,17 +34,17 @@
                 </a>
             </div>
         </div>
-
+        <h2 class="text-center">Teachers</h2>
         <div class="container text-muted mt-5">
             <div class="row">
                
-                    <% if(teachers.length> 0){ %>
-                        <% teachers.forEach(teacher=> { %>
+                    <% if(teacher.length> 0){ %>
+                        <% teacher.forEach(teacher=> { %>
                             <div class="col-3">
                             <div class="card">
                                 <img src="/images/default.jpg" class="card-img-top img-fluid" />
                                 <div class="card-block">
-                                    <% var s='/home' %>
+                                    <% var s='/home/profile/' + teacher.id._id %>
                                     <a href="<%=s%>">
                                         <h4 class="text-center">
                                             <%= teacher.name %>

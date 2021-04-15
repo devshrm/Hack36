@@ -22,7 +22,11 @@ const UserSchema = new mongoose.Schema({
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post"
-    }]
+    }],
+    myTeacher:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher"
+    }
 
 
 

@@ -56,7 +56,7 @@ router.post('/register', (req, res) => {
                             .then(user => {
                                 if (req.body.radioProfession === 'Teacher') {
                                     const newTeacher = new Teacher({
-                                        user, name: req.body.name, latitude: req.body.Latitude, longitude: req.body.Longitude
+                                        id:user, name: req.body.name, latitude: req.body.Latitude, longitude: req.body.Longitude
                                     });
 
                                     newTeacher.save().then(teacher => {

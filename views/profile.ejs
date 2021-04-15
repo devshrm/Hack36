@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Profile | <%= user.name %></title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -51,7 +54,7 @@
                                 <%= user.name %>
                             </h4>
                             <% if(user.role==='Teacher' ){ %>
-                                <button class="float-lg-right" id="subscribe">Join</button>
+                                <button type="button" class="btn btn-success float-lg-right" id="subscribe">Join</button>
                                 <% } %>
                         </div>
                     </div>
@@ -62,6 +65,12 @@
                             <h4>
                                 <%= user.role%>
                             </h4>
+                            <% if(user.role==='Teacher' ){ %>
+                                <p>Current batch strength : <%= teacher.curBatch %></p>
+                                <p>Maximum batch strength : <%= teacher.maxBatch %></p>
+
+
+                                <% } %>
                         </li>
 
                     </ul>
@@ -89,23 +98,33 @@
         </div>
     </div>
 
+    <script>
+        
+        var email = '<%- user.email %>';
+        const data = { email };
+        console.log(data)
+        document.getElementById("subscribe").onclick = async () => {
+            var options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
 
+            const resp = await fetch('/home/join' , options);
+            const result = await resp.text();
+            alert(result)
+            console.log(result)
+            
+
+
+        }
+    </script>
 
     <%- include('./partials/footer.ejs') %>
 
-        <script>
-            var button1 = document.getElementById('subscribe');
-            var per = '<%- user.email %>';
-            button1.addEventListener('click', () => {
-                var options = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                };
-            })
-        </script>
+        
 </body>
 
 </html>

@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Open+Sans&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -30,39 +32,52 @@
         <div class="row justify-content-center text-center">
 
             <div class="col-lg-2"><a href="/home">Home</a></div>
-            <div class="col-lg-2"><a href="/home/findTeacher">Find Teacher</a></div>
             <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
 
         </div>
     </div>
 
-    <div class="container container-fluid">
-        <div class="row mt-4">
-            <span>Want to ask a question ? <a href="/home/writePost">Click here.</a>
-        </div>
-        <h4 class="text-center my-4">Questions</h4>
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-6" id="column-one">
+                <h4 class="text-center my-4" id="Questions">Questions</h4>
 
 
 
-        <% if(posts.length> 0){ %>
-            <% posts.forEach(post=> { %>
-                <div class="row mb-4" id="each-post">
-                    <a class="" href="/home/<%= post._id %>">
-                        <div id="each-post-content">
-                            <h3 class="text-warning">
-                                <%= post.title %>
-                            </h3>
-                            <p class="text-warning">By <%= post.createdBy.name %>
-                            </p>
-                        </div>
+                <% if(posts.length> 0){ %>
+                    <% posts.forEach(post=> { %>
+                        <a id="each" href="/home/<%= post._id %>">
+                            <div class="row mb-4" id="each-post">
+
+                                <div id="each-post-content">
+                                    <h4 class="each-post-heading">
+                                        <%= post.title %>
+                                    </h4>
+                                    <p class="each-post-paragraph">By <%= post.createdBy.name %>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                        <% }) %>
+                            <% }else{ %>
+                                <p>No posts... </p>
+                                <% } %>
+            </div>
+            <div class="col-4 mt-5" >
+                <div class="row" id="sidebar-home">
+                    <a href="/home/writePost">
+                    <p>Ask question →</p>
                     </a>
                 </div>
-                <% }) %>
-                    <% }else{ %>
-                        <p>No posts... </p>
-                        <% } %>
+               <div class="row" id="sidebar-home">
+                <a href="/home/findTeacher">
+                   <p>Find teacher →</p>
+                </a>
+               </div>
+            </div>
 
-
+        </div>
     </div>
 
 

@@ -24,9 +24,10 @@ router.get('/my-profile', (req, res) => {
 })
 
 router.get('/findTeacher', (req, res) => {
-    Teacher.find().sort({ createdAt: -1 }).then((result) => {
-        res.render('findTeacher', { title: 'Find teacher', teachers: result });
-    }).catch(err => console.log(err));
+    Teacher.find().sort({ createdAt: -1 }).populate('id').exec((err , result) => {
+       
+        res.render('findTeacher', { title: 'Find teacher', teacher: result });
+    })
 
 });
 
@@ -37,8 +38,7 @@ router.get('/findTeacher/map', (req, res) => {
             res.redirect('/home');
         } else {
             Teacher.find().then((result) => {
-                console.log(USER.latitude)
-                console.log(result)
+               
                 res.render('findByMap', { title: 'Map', user: USER, teachers: result });
             }).catch(err => console.log(err))
         }
@@ -56,7 +56,7 @@ router.get('/:id', (req, res) => {
             console.log(err);
             return res.status(400).json({ message: "Error" });
         }
-
+       
         res.render('post', { post: post, title: 'Question' });
 
     })
@@ -65,7 +65,7 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/profile/:id', (req, res) => {
-    console.log(req.params.id)
+    
     let id = req.params.id;
     id = mongoose.Types.ObjectId(id);
     User.findById(id).populate('posts').exec(function (err, user) {
@@ -73,8 +73,15 @@ router.get('/profile/:id', (req, res) => {
             console.log(err);
             return res.status(400).json({ message: "Error" });
         }
-        console.log(user)
-        res.render('profile', { title: 'Profile', user: user })
+        if(user.role === 'Student'){
+            res.render('profile', { title: 'Profile', user: user });
+        }else{
+            Teacher.findOne({id : user._id} , (error , teacher)=>{
+                res.render('profile', { title: 'Profile', user: user ,teacher : teacher });
+            })
+        }
+        
+        
     })
 });
 
@@ -124,6 +131,29 @@ router.post('/writePost', (req, res) => {
 });
 
 
+router.post('/join' , async (req,res)=> {
+    const email = req.body.email;
+    
+    const user = await User.findOne({email : email});  
+    const teacher = await Teacher.findOne({id : user._id});
+    console.log(user.myTeacher, teacher._id)
+
+    if(user.myTeacher.equals(teacher._id) ){
+        res.send('You have already joined');
+    }else if((teacher.curBatch < teacher.maxBatch) ){
+        teacher.curBatch += 1;
+        teacher.save();
+        user.myTeacher = teacher;
+        user.save();
+        res.send('Successful')
+    }else{
+        res.send('Batch is full')
+    }
+    
+    
+    
+})
+
 router.post('/:id', (req, res) => {
     const id = req.params.id;
 
@@ -161,6 +191,9 @@ router.post('/:id', (req, res) => {
 
     })
 
-})
+});
+
+
+
 
 module.exports = router;

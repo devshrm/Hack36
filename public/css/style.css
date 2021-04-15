@@ -1,30 +1,62 @@
-*{
-    font-family: 'Source Sans Pro', sans-serif;
+* {
+  font-family: "Merriweather", serif;
+  font-family: "Open Sans", sans-serif;
+}
+#Questions {
+  text-shadow: 1px 1px 2px rgb(255, 194, 175), 0 0 25px rgb(241, 152, 152),
+    0 0 5px rgb(118, 118, 228);
+}
+#column-one {
+  margin-left: 200px;
+}
+#each-post {
+  box-shadow: 3px 3px black;
+  text-decoration: none;
+
+  border-radius: 10px;
 }
 
-#each-post{
-    border: 1px solid lightcyan;
-    margin-left: 50px ;
-    margin-right: 50px;
-    border-radius: 10px;
+.each-post-heading {
+  text-decoration: none;
+  color: coral;
+}
+.each-post-paragraph {
+  text-decoration: none;
+  color: coral;
 }
 
-#each-post-content{
-    padding: 5px;
+#each-post-content {
+  padding: 5px;
 }
 
-#GoogleMAP{
-    margin-left: 194px;
-    margin-top: 25px;
+#sidebar-home {
+  margin-top: 50px;
+  margin-left: 170px;
+}
+#sidebar-home p {
+  background-color: red;
+  color: white;
+  padding: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-
-#map{
-    margin: 5px auto;
-    height: 700px ;
-    width: 70%;
+#sidebar-home a:hover {
+  text-decoration: none;
+  cursor: pointer;
 }
 
-#subscribe{
-    text-align: right;
+#GoogleMAP {
+  margin-left: 194px;
+  margin-top: 25px;
+}
+
+#map {
+  margin: 5px auto;
+  height: 700px;
+  width: 70%;
+}
+
+#subscribe {
+  text-align: right;
 }
