@@ -80,13 +80,28 @@
                     </div>
                     <% if((user.posts).length> 0){ %>
                         <% (user.posts).forEach(post=> { %>
-                            <div class="row ml-2 mb-5">
-                                <a href="/home/<%=post._id %>">
+                            <div class="ml-2 mb-3">
+                               
+                                    <% let dat=new Date(post.createdAt) %>
+                                    <% let dat2 = Date.now() %>
+                                    <% let diffTime = Math.abs(dat2 - dat) %>
+                                    <% let diffDays = Math.ceil(diffTime/(1000*60*60*24))%>
                                     <h4>
+                                        <a href="/home/<%=post._id %>" id="post-anchor">
                                         <%= post.title%>
+                                        </a>
                                     </h4>
-                                </a>
+                               
+                               
+                                <% if (diffDays == 1) {%>
+                                    <p>Today</p>
+                                 <% }else{%>
+                                    <p><%= diffDays - 1%> Days ago</p>
+                                <% } %>
+                               
                             </div>
+                            <hr />
+                           
                             <% }) %>
                                 <% }else{ %>
                                     <p>No posts... </p>

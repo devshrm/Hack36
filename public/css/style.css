@@ -67,3 +67,7 @@
 #subscribe {
   text-align: right;
 }
+
+#post-anchor {
+  display: block;
+}
