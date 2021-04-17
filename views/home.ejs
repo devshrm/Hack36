@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Open+Sans&display=swap"
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/ec11d877c4.js" crossorigin="anonymous"></script>
@@ -14,33 +15,32 @@
 </head>
 
 <body>
-    <div class="jumbotron jumbotron-fluid bg-info py-3 mb-0 pb-0">
+    <div class="jumbotron jumbotron-fluid py-3 mb-0 pb-0" id="header">
         <div class="container">
             <div class="row">
-                <div class="col-lg-11">
+                <div class="col-lg-9">
                     <h1 class="text-white">StudyCorner</h1>
                 </div>
                 <div class="col-lg-1 py-3">
-                    <p><a href="/logout" class="text-warning">Logout</a></p>
+                    <p><a href="/home" class="text-white">Home</a></p>
+                   </div>
+                   <div class="col-lg-1 py-3">
+                    <p><a href="/home/my-profile" class="text-white">Profile</a></p>
+                  </div>
+                <div class="col-lg-1 py-3">
+                    <p><a href="/logout" class="text-white">Logout</a></p>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="container-fluid bg-light text-danger py-3">
-        <div class="row justify-content-center text-center">
-
-            <div class="col-lg-2"><a href="/home">Home</a></div>
-            <div class="col-lg-2"><a href="/home/my-profile">My Profile</a></div>
-
-        </div>
-    </div>
+    <br>
 
     <div class="container-fluid ">
         <div class="row">
             <div class="col-6" id="column-one">
-                <h4 class="text-center my-4" id="Questions">Questions</h4>
+                <h4 class="text-center my-4" id="Questions">Posts</h4>
 
 
 
