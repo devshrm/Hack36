@@ -101,6 +101,6 @@ router.get('/logout', (req, res) => {
 })
 
 router.use('/home', require('./home.js'));
-
+router.use('/api',  require('./api.js')); 
 
 module.exports = router;

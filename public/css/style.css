@@ -71,3 +71,7 @@
 #post-anchor {
   display: block;
 }
+
+#like-button {
+  color: orangered;
+}

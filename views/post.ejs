@@ -56,7 +56,14 @@
 
             <br>
             <br>
+            <div class="row mb-2 ml-0">
               
+            <button class="btn" id="like-button-click"><i class="fas fa-rocket fa-lg " id="like-button"></i></button>
+            <h4 class="ml-2 "><%= post.likes%></h4>
+          </div>
+            
+            
+
               <div class="">
                 <form action="/home/<%= post._id%>" method="POST">
                   <div class="form-group">
@@ -66,7 +73,7 @@
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
-
+              
 
               <h4>Comments : </h4>
             <div class="media mb-4">
@@ -136,7 +143,23 @@
 
 
 
+    
+    <script>
+      var post_id = '<%- post._id %>';
+      const data = {post_id};
+      document.getElementById("like-button-click").onclick = async () => {
+        var options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
 
+            const resp = await fetch('/api/likes' , options);
+            const result = await resp.text();
+      }
+    </script>
     <%- include('./partials/footer.ejs') %>
   </body>
 
