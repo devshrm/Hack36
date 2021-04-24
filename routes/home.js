@@ -18,8 +18,6 @@ router.get('/', ensureAuthenticated, (req, res) => {
 router.get('/my-profile', (req, res) => {
 
     let id = req.user._id;
-
-    console.log(id)
     res.redirect('/home/profile/' + id);
 })
 
@@ -63,25 +61,39 @@ router.get('/:id', (req, res) => {
 
 });
 
-
-router.get('/profile/:id', (req, res) => {
-    
-    let id = req.params.id;
-    id = mongoose.Types.ObjectId(id);
-    User.findById(id).populate('posts').exec(function (err, user) {
+//Profile
+router.get('/profile/:id', async (req, res) => {
+   
+    let id1 = req.params.id;
+    let currUserId = req.user._id;
+    id2 = mongoose.Types.ObjectId(id1);
+    User.findById(id2).populate('posts').exec(function (err, user1) {
+        
         if (err) {
             console.log(err);
             return res.status(400).json({ message: "Error" });
         }
-        if(user.role === 'Student'){
-            res.render('profile', { title: 'Profile', user: user });
+
+
+        if(user1.role === 'Student'){
+            if(id1 == currUserId){
+               
+                res.render('profile', { title: 'Profile', user1: user1, currUserId : currUserId, check : false });
+            }else{
+                
+                res.render('profile', { title: 'Profile', user1: user1, currUserId : currUserId, check : true });
+            }
         }else{
-            Teacher.findOne({id : user._id} , (error , teacher)=>{
-                res.render('profile', { title: 'Profile', user: user ,teacher : teacher });
+            
+            Teacher.findOne({id : user1._id} , (error , teacher)=>{
+                if(id1 == currUserId){
+                res.render('profile', { title: 'Profile', user1: user1 ,teacher : teacher, currUserId:currUserId, check : false });
+                }else{
+                    res.render('profile', { title: 'Profile', user1: user1 ,teacher : teacher, currUserId:currUserId, check : true });
+                }
+            
             })
         }
-        
-        
     })
 });
 
@@ -133,18 +145,16 @@ router.post('/writePost', (req, res) => {
 
 router.post('/join' , async (req,res)=> {
     const email = req.body.email;
-    
-    const user = await User.findOne({email : email});  
-    const teacher = await Teacher.findOne({id : user._id});
-    console.log(user.myTeacher, teacher._id)
+    const U = await User.findOne({email : email});  
+    const teacher = await Teacher.findOne({id : U._id});
 
-    if(user.myTeacher.equals(teacher._id) ){
+    if(U.myTeacher != null && U.myTeacher.equals(teacher._id) ){
         res.send('You have already joined');
     }else if((teacher.curBatch < teacher.maxBatch) ){
         teacher.curBatch += 1;
         teacher.save();
-        user.myTeacher = teacher;
-        user.save();
+        U.myTeacher = teacher;
+        U.save();
         res.send('Successful')
     }else{
         res.send('Batch is full')
@@ -158,10 +168,6 @@ router.post('/:id', (req, res) => {
     const id = req.params.id;
 
     User.findById(req.user._id, (err, user) => {
-
-
-
-
         var comment = new Comment({
             content: req.body.content,
             createdOn: id,
@@ -176,24 +182,15 @@ router.post('/:id', (req, res) => {
                 return console.log(err);
 
             }
-
             Post.findByIdAndUpdate(id, { $push: { "comments": cmnt._id } }, (error, pst) => {
                 if (error) {
                     return console.log(error)
                 }
                 res.redirect('/home/' + id);
-
-
             })
 
         })
-
-
     })
-
 });
-
-
-
 
 module.exports = router;

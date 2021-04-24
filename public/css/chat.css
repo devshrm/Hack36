@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+
+
+* {
+	
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	
+	font-family: 'Merriweather', serif;
+	font-size: 20px;
+	margin: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.btn {
+	cursor: pointer;
+	padding: 5px 15px;
+	background:#25D366;
+	color: white;
+	font-weight: bold;
+	border: 0;
+	font-size: 17px;
+}
+
+
+
+.chat-container {
+	max-width: 1000px;
+	background: #fff;
+	margin: 30px auto;
+	overflow: hidden;
+}
+
+.chat-header {
+	background:#128C7E;
+	color: #fff;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.chat-main {
+	display: grid;
+}
+
+
+.chat-messages {
+	background-color:#FFFFCC;
+	padding: 30px;
+	min-height: 500px;
+	max-height: 600px;
+	overflow-y: scroll;
+}
+
+.chat-messages .message {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: #DCF8C6;
+	border-radius: 5px;
+}
+
+
+.chat-form-container {
+	padding: 20px 30px;
+	background:#128C7E;
+}
+
+.chat-form-container form {
+	display: flex;
+}
+
+.chat-form-container input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	flex: 1;
+}
+
+
+
+@media (max-width: 700px) {
+	.chat-main {
+		display: block;
+	}
+}

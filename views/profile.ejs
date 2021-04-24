@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile | <%= user.name %></title>
+    <title>Profile | <%= user1.name %></title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
@@ -21,13 +21,13 @@
                     <h1 class="text-white">StudyCorner</h1>
                 </div>
                 <div class="col-lg-1 py-3">
-                    <p><a href="/home" class="text-white">Home</a></p>
+                    <p><a href="/home" class="text-white font-weight-bold" id="anchor-tag">Home</a></p>
                    </div>
                    <div class="col-lg-1 py-3">
-                    <p><a href="/home/my-profile" class="text-white">Profile</a></p>
+                    <p><a href="/home/my-profile" class="text-white font-weight-bold" id="anchor-tag">Profile</a></p>
                   </div>
                 <div class="col-lg-1 py-3">
-                    <p><a href="/logout" class="text-white">Logout</a></p>
+                    <p><a href="/logout" class="text-white font-weight-bold" id="anchor-tag">Logout</a></p>
                 </div>
             </div>
         </div>
@@ -49,11 +49,15 @@
                                 class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
                         <div class="media-body mb-5 text-white">
                             <h4 class="mt-0 mb-0 text-danger">
-                                <%= user.name %>
+                                <%= user1.name %>
                             </h4>
-                            <% if(user.role==='Teacher' ){ %>
-                                <button type="button" class="btn btn-success float-lg-right" id="subscribe">Join</button>
-                                <% } %>
+                            <%var str = '/api/message/' + user1._id %>
+                            <% if(check) {%>
+                                <button type="button" class="btn btn-success float-lg-right " id="message"><a class="text-white" style = "text-decoration: none;" href=<%= str%>>Message</a></button>
+                            <% } %>
+                            <% if(user1.role==='Teacher' ){ %>
+                                <button type="button" class="btn btn-success float-lg-right mr-1" id="subscribe">Join</button>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -61,9 +65,9 @@
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
                             <h4>
-                                <%= user.role%>
+                                <%= user1.role%>
                             </h4>
-                            <% if(user.role==='Teacher' ){ %>
+                            <% if(user1.role==='Teacher' ){ %>
                                 <p>Current batch strength : <%= teacher.curBatch %></p>
                                 <p>Maximum batch strength : <%= teacher.maxBatch %></p>
 
@@ -78,8 +82,8 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="mb-5">All posts</h5>
                     </div>
-                    <% if((user.posts).length> 0){ %>
-                        <% (user.posts).forEach(post=> { %>
+                    <% if((user1.posts).length> 0){ %>
+                        <% (user1.posts).forEach(post=> { %>
                             <div class="ml-2 mb-3">
                                
                                     <% let dat=new Date(post.createdAt) %>
@@ -113,9 +117,8 @@
 
     <script>
         
-        var email = '<%- user.email %>';
+        var email = '<%- user1.email %>';
         const data = { email };
-        console.log(data)
         document.getElementById("subscribe").onclick = async () => {
             var options = {
                 method: 'POST',
@@ -128,11 +131,14 @@
             const resp = await fetch('/home/join' , options);
             const result = await resp.text();
             alert(result)
-            console.log(result)
+          
             
 
 
         }
+
+
+       
     </script>
 
     <%- include('./partials/footer.ejs') %>

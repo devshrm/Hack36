@@ -2,6 +2,9 @@
   font-family: "Merriweather", serif;
   font-family: "Open Sans", sans-serif;
 }
+#anchor-tag:hover {
+  text-decoration: none;
+}
 #header {
   background-color: #ff8c00;
 }

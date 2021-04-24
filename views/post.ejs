@@ -10,13 +10,13 @@
             <h1 class="text-white">StudyCorner</h1>
           </div>
           <div class="col-lg-1 py-3">
-            <p><a href="/home" class="text-white">Home</a></p>
+            <p><a href="/home" class="text-white font-weight-bold" id="anchor-tag">Home</a></p>
            </div>
            <div class="col-lg-1 py-3">
-            <p><a href="/home/my-profile" class="text-white">Profile</a></p>
+            <p><a href="/home/my-profile" class="text-white font-weight-bold" id="anchor-tag">Profile</a></p>
           </div>
           <div class="col-lg-1 py-3">
-            <p><a href="/logout" class="text-white">Logout</a></p>
+            <p><a href="/logout" class="text-white font-weight-bold" id="anchor-tag">Logout</a></p>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <p class="lead">
             by
             <% var s='/home/profile/' + post.createdBy.id %>
-              <% console.log(s) %>
+           
                 <a href="<%=s%>">
                   <%= post.createdBy.name%>
                 </a>
@@ -45,7 +45,7 @@
 
           <% let dat=new Date(post.createdAt) %>
 
-            <p>Posted on <%= dat.toDateString()%>
+            <p>Posted on <%= dat.getDate()%>-<%= dat.getMonth()+1 %>-<%= dat.getFullYear()%> 
             </p>
             <hr>
 
@@ -84,9 +84,9 @@
                   <% post.comments.forEach(comment=>{ %>
 
 
-                    <h5 class="mt-0">
-                      <%= comment.createdBy.name%>
-                    </h5>
+                    <p class="mt-0">
+                     by <a href="<%= '/home/profile/' + comment.createdBy.id._id %>"><%= comment.createdBy.name%></a>
+                    </p>
                     <p class="mt-0">
                       <%= comment.content%>
                     </p>
