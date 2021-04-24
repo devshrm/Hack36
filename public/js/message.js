@@ -5,12 +5,23 @@ var to = document.getElementById('mydiv2').dataset.test
 var fromName = document.getElementById('mydiv3').dataset.test
 var toName = document.getElementById('mydiv4').dataset.test
 
+var typing=false;
+var timeout=undefined;
+var user;
+
+
+
+
+
+
 const socket = io.connect('http://localhost:3000/',{ 
     query:{
         userid : String(from),
         name : String(fromName)
     }
 });
+
+
 
 socket.on('private message' ,({content , from, time}) => {
     const div = document.createElement('div');
@@ -21,6 +32,30 @@ socket.on('private message' ,({content , from, time}) => {
     document.querySelector('.chat-messages').append(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
+
+
+var timeout;
+
+function timeoutFunction() {
+    typing = false;
+    socket.emit("typing", false);
+}
+
+$('#msg').keyup(function() {
+    typing = true;
+    socket.emit('typing', 'typing...');
+    clearTimeout(timeout);
+    timeout = setTimeout(timeoutFunction, 2000);
+});
+
+socket.on('typing', function(data) {
+    if (data) {
+        document.getElementById('Typing').innerHTML = 'Typing...';
+    } else {
+        document.getElementById('Typing').innerHTML = '';
+    }
+});
+
 
 socket.on('message' , ({message , time})=>{
     const div = document.createElement('div');

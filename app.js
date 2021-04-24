@@ -85,10 +85,15 @@ io.on('connection' , (socket) => {
     });
 
 
+    socket.on('typing', function (data) {
+        socket.broadcast.emit('typing', data);
+      });
 
     socket.on('disconnect' , ()=>{
         io.emit('message' , {message : `${socket.name} has left the chat` , time : formatMessage().time});
     });
+
+
 
     
 

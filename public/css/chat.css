@@ -67,8 +67,22 @@ a {
 	border-radius: 5px;
 }
 
+.Typing-div{
+	background-color: #FFFFCC;
+	
+}
+
+#Typing{
+	padding-bottom: 8px;
+	margin-left: 30px;
+	margin-bottom: 0px;
+	text-decoration: solid;
+	font-style: italic;
+	letter-spacing:2px;
+}
 
 .chat-form-container {
+	margin-top:0px;
 	padding: 20px 30px;
 	background:#128C7E;
 }
