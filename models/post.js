@@ -25,6 +25,7 @@ const PostSchema = new mongoose.Schema({
     default: 0,
   },
   tags: [String],
+  imageURL:String
 });
 
 const Post = mongoose.model("Post", PostSchema);

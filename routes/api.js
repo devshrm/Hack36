@@ -18,7 +18,6 @@ router.get('/message/:id',async (req, res)=>{
     const from = await User.findOne({ _id : req.user._id });
     const toID = req.params.id;
     const to = await User.findOne({ _id : toID});
-    console.log(from.name , to.name)
     res.render('message',{title : 'Chat',from: from, fromName : from.name , to:to , toName : to.name  }); 
 })
 

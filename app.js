@@ -71,7 +71,7 @@ io.use(async (socket,next) => {
 })
 
 io.on('connection' , (socket) => {
-    console.log('SOCKET IO' + socket.id);
+    
     
     socket.emit('message' , { message : `Welcome to chat ${socket.name}` , time: formatMessage().time});
     socket.on('private message' , ({content , to}) => {

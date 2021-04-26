@@ -6,6 +6,12 @@ const User = require('../models/user.js');
 const Teacher = require('../models/teacher.js');
 const Comment = require('../models/comment.js');
 const mongoose = require('mongoose');
+const cloudinary = require("../utils/cloudinary");
+const upload = require('../utils/multer.js');
+
+
+
+router.use('/findTeacher' , require('./findTeacher.js'));
 
 //GET
 router.get('/', ensureAuthenticated, (req, res) => {
@@ -15,34 +21,21 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 });
 
+router.post('/image' ,upload.single("image"), async (req,res)=>{
+    console.log(req.body)
+    console.log(req.file)
+   
+    console.log(result)
+    
+})
+
 router.get('/my-profile', (req, res) => {
 
     let id = req.user._id;
     res.redirect('/home/profile/' + id);
 })
 
-router.get('/findTeacher', (req, res) => {
-    Teacher.find().sort({ createdAt: -1 }).populate('id').exec((err , result) => {
-       
-        res.render('findTeacher', { title: 'Find teacher', teacher: result });
-    })
 
-});
-
-router.get('/findTeacher/map', (req, res) => {
-    User.findById(req.user._id, (err, USER) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/home');
-        } else {
-            Teacher.find().then((result) => {
-               
-                res.render('findByMap', { title: 'Map', user: USER, teachers: result });
-            }).catch(err => console.log(err))
-        }
-    })
-
-})
 router.get('/writePost', (req, res) => {
     res.render('WritePost');
 });
@@ -60,6 +53,8 @@ router.get('/:id', (req, res) => {
     })
 
 });
+
+
 
 //Profile
 router.get('/profile/:id', async (req, res) => {
@@ -100,17 +95,22 @@ router.get('/profile/:id', async (req, res) => {
 
 
 
+
+
 //POST
 
-router.post('/writePost', (req, res) => {
+router.post('/writePost',upload.single("image"), async (req, res) => {
     const str = req.body.tags;
     const str1 = str.split(' ');
+   
+   const result = await cloudinary.uploader.upload(req.file.path);
     var post = new Post({
         title: req.body.Title,
         content: req.body.Content,
-        tags: str1
+        tags: str1,
+        imageURL : result.secure_url
     });
-    console.log(req.user);
+    
     User.findById(req.user._id, (err, pUSER) => {
         if (err) {
             console.log(err);
@@ -121,7 +121,7 @@ router.post('/writePost', (req, res) => {
                     console.log(err);
                     res.redirect('/home');
                 } else {
-                    console.log(post);
+                   
 
                     post.createdBy.name = pUSER.name;
                     post.createdBy.id = pUSER;
