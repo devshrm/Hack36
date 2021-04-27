@@ -3,10 +3,13 @@
   font-family: "Open Sans", sans-serif;
 }
 #anchor-tag:hover {
+  padding: 5px;
+  border-radius: 3px;
   text-decoration: none;
+  background-color: rgb(197, 189, 189);
 }
 #header {
-  background-color: #ff8c00;
+  background-color: rgb(83, 3, 83);
 }
 #back {
   background-color: #eee2dc;
@@ -39,26 +42,42 @@
   padding: 5px;
 }
 
-#sidebar-home {
-  margin-top: 50px;
-  margin-left: 170px;
-}
-#sidebar-home p {
-  background-color: red;
-  color: white;
-  padding: 15px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
 
-#sidebar-home a:hover {
-  text-decoration: none;
-  cursor: pointer;
-}
+
 
 #GoogleMAP {
   margin-left: 194px;
   margin-top: 25px;
+}
+
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: calc(100vh - 56px);
+  transition: all 0.3s;
+  background-color: rgb(220, 220, 220);
+}
+
+.sidebar ul li a {
+  background-color: red;
+  color: white;
+  padding: 25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  
+  text-decoration: none;
+  font-weight: bold;
+ 
+}
+
+.sidebar ul li a:hover{
+  background-color: rgb(220, 220, 220);
+}
+
+
+.sidebar ul a:hove{
+  background-color:darkred;
 }
 
 #map {
@@ -77,4 +96,49 @@
 
 #like-button {
   color: orangered;
+}
+
+
+
+
+
+
+
+.search-form .form-group {
+  border: 1px solid #9ff0c8;
+  padding: 20px;
+}
+
+.search-form .form-group input {
+  height: 50px !important;
+  border: transparent
+
+}
+
+#search {
+  height: 52px !important;
+  background: #fff !important;
+  color: #3a4348 !important;
+  font-size: 18px;
+  border-radius: 0px;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important
+}
+
+
+.search-form .form-group .search {
+  background: #22d47b;
+  border: 2px solid #22d47b;
+  color: #fff;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0
+}
+
+
+
+#user-search{
+  text-decoration: none;
+  font-weight: bold;
 }

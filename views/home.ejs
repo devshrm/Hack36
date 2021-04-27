@@ -35,11 +35,23 @@
     </div>
 
 
+<div class="d-flex align-items-stretch">
+    <div class="sidebar bg-dark">
+        <ul class="list-unstyled">
+            <li><a href="/home/writePost"> Ask question </a></li>
+            <li><a href="/home/findTeacher"> Find Teacher </a></li>
+            <li><a href="/home/search"> Search </a></li>
+           
+           
+        </ul>
+    </div>
+
+
     <br>
 
     <div class="container-fluid ">
         <div class="row">
-            <div class="col-6" id="column-one">
+            <div class="col-8" id="column-one">
                 <h4 class="text-center my-4" id="Questions">Posts</h4>
 
 
@@ -65,23 +77,11 @@
                                 <p>No posts... </p>
                                 <% } %>
             </div>
-            <div class="col-4 mt-5" >
-                <div class="row" id="sidebar-home">
-                    <a href="/home/writePost">
-                    <p>Ask question →</p>
-                    </a>
-                </div>
-               <div class="row" id="sidebar-home">
-                <a href="/home/findTeacher">
-                   <p>Find teacher →</p>
-                </a>
-               </div>
-            </div>
-
+          
         </div>
     </div>
 
-
+</div>
     <%- include('./partials/footer.ejs') %>
 </body>
 

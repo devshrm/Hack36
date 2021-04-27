@@ -1,0 +1,70 @@
+<html lang="en">
+<%- include('./partials/header.ejs') %>
+
+  <body>
+
+    <div class="jumbotron jumbotron-fluid py-3 mb-0 pb-0" id="header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <h1 class="text-white">StudyCorner</h1>
+          </div>
+          <div class="col-lg-1 py-3">
+            <p><a href="/home" class="text-white font-weight-bold" id="anchor-tag">Home</a></p>
+           </div>
+           <div class="col-lg-1 py-3">
+            <p><a href="/home/my-profile" class="text-white font-weight-bold" id="anchor-tag">Profile</a></p>
+          </div>
+          <div class="col-lg-1 py-3">
+            <p><a href="/logout" class="text-white font-weight-bold" id="anchor-tag">Logout</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+   <br>
+
+
+
+   <div class="row justify-content-center">
+    <div class="col-md-8">
+        <form action="/home/search" method="POST" class="search-form">
+            <div class="form-group d-md-flex"> 
+                <input type="text" id="search" name="search" class="form-control px-4" placeholder="Search...">
+                 <input type="submit" class="search btn btn-primary px-5" value="Search">
+             </div>
+        </form>
+       
+    </div>
+
+    
+    <% if(users != 'Empty') {%>
+      <% if(users.length> 0){ %>
+        <% users.forEach(user=> { %>
+          <div class="col-md-8 ml-5 mt-5">
+            <a id="user-search" href="/home/profile/<%= user._id %>">
+                <div class="row mb-4">
+                        <h4>
+                            <%= user.name %>
+                        </h4>
+                    </div>
+                </div>
+              </a>
+          </div>
+            <% }) %>
+           <% }else if(check = 1 ){ %>
+                  <div class="col-md-8 ml-5 mt-5">
+                    <p>No such user... </p>
+                  </div>
+           <% } %>
+    <% } %>
+  
+
+</div>
+
+
+   <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>

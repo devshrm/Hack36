@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoose_fuzzy_searching = require("mongoose-fuzzy-searching");
 
 const UserSchema = new mongoose.Schema({
   name: String,
@@ -31,5 +32,6 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+UserSchema.plugin(mongoose_fuzzy_searching,{fields:['name']})
 const User = mongoose.model("User", UserSchema);
 module.exports = User;

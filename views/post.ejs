@@ -53,8 +53,9 @@
             <p class="lead">
               <%= post.content%>
             </p>
+            <% if(post.imageURL != 'Empty'){ %>
             <img src=<%= post.imageURL %> class="img-fluid" alt="Responsive image">
-
+              <% } %>
             <br>
             <br>
             <div class="row mb-2 ml-0">

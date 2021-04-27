@@ -12,6 +12,8 @@ const upload = require('../utils/multer.js');
 
 
 router.use('/findTeacher' , require('./findTeacher.js'));
+router.use('/search' , require('./search.js'));
+
 
 //GET
 router.get('/', ensureAuthenticated, (req, res) => {
@@ -21,13 +23,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 });
 
-router.post('/image' ,upload.single("image"), async (req,res)=>{
-    console.log(req.body)
-    console.log(req.file)
-   
-    console.log(result)
-    
-})
+
 
 router.get('/my-profile', (req, res) => {
 
@@ -97,18 +93,27 @@ router.get('/profile/:id', async (req, res) => {
 
 
 
+
+
+
 //POST
 
 router.post('/writePost',upload.single("image"), async (req, res) => {
     const str = req.body.tags;
     const str1 = str.split(' ');
-   
-   const result = await cloudinary.uploader.upload(req.file.path);
+    var result_url;
+    
+    if(!req.file){
+       result_url = 'Empty';
+    }else{
+      const result = await cloudinary.uploader.upload(req.file.path);
+      result_url = result.secure_url;
+    }
     var post = new Post({
         title: req.body.Title,
         content: req.body.Content,
         tags: str1,
-        imageURL : result.secure_url
+        imageURL : result_url
     });
     
     User.findById(req.user._id, (err, pUSER) => {
